@@ -62,7 +62,11 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
 
         if ("startup".equals(method)) {
             //启动
-            result.success(this.startup((Map) call.arguments));
+            try {
+                result.success(this.startup((Map) call.arguments));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else if("shutdown".equals(method)){
             //关闭
@@ -219,7 +223,7 @@ public class AmapLocationPlugin implements MethodCallHandler, AMapLocationListen
 
     }
 
-    private boolean startup(Map arguments) {
+    private boolean startup(Map arguments) throws Exception {
         synchronized (this){
 
             if(locationClient==null){
